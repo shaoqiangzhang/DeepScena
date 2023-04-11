@@ -1,7 +1,6 @@
 # DeepScena
 Deep clustering of scRNA-seq data
 
-# 1. Installation
 ## Start by installing the necessary packages
 The code runs with Python version 3.9 and Pytorch 1.7.1. Assuming Anaconda, the virtual environment can be installed using:
 
@@ -17,3 +16,9 @@ conda install numpy pandas scikit-learn
 conda install -c conda-forge scanpy python-igraph leidenalg
 ```
 See the requirements.txt file for an overview of the packages in the environment we used to produce our results.
+
+## Data preprocessing
+If the scRNA-seq expression dataset is UMI-count, please use the "preprocess_UMIcount_file.py" file to preprocess data. If the dataset is read-count, please use the    "preprocess_readcount_file.py" file to preproces data.
+
+## Training and clustering
+
