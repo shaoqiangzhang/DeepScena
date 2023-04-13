@@ -18,7 +18,7 @@ conda install -c conda-forge scanpy python-igraph leidenalg
 See the requirements.txt file for an overview of the packages in the environment we used to produce our results.
 
 ## Data preprocessing
-If the scRNA-seq expression dataset is UMI-count, please use the "preprocess_UMIcount_file.py" file to preprocess data. If the dataset is read-count, please use the    "preprocess_readcount_file.py" file to preproces data.
+If the scRNA-seq expression dataset is UMI-count, please use the "preprocess_UMIcount_file.py" file to preprocess data. If the dataset is read-count, please use the    "preprocess_readcount_file.py" file to preprocess data.
 
 ## Training and clustering
 
