@@ -4,7 +4,7 @@ Deep clustering of scRNA-seq data
 See the requirements.txt file for an overview of the packages in the environment we used to produce our results.
 
 ## Data preprocessing
-Before preprocessing data, please install packages "**numpy**","**pandas**", and "**scanpy**"
+Before preprocessing data, please install packages "**numpy**","**pandas**", and "**scanpy**". Assuming Anaconda, they can be installed using
 
 ```
 conda install numpy pandas scikit-learn
@@ -12,7 +12,7 @@ conda install numpy pandas scikit-learn
 ```
 conda install -c conda-forge scanpy python-igraph leidenalg
 ```
-Run the following command line to preprocess UMI-count data:
+###Run the following command line to preprocess UMI-count data:
 ```
 python preprocess_data.py -p Data/ -i pbmc4340.txt -o pbmcpre.csv
 ```
