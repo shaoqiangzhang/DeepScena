@@ -4,7 +4,7 @@ Deep clustering of scRNA-seq data
 See the requirements.txt file for an overview of the packages in the environment we used to produce our results.
 
 ## Data preprocessing
-Before preprocessing data, please install packages "numpy","pandas", and "scanpy"
+Before preprocessing data, please install packages "**numpy**","**pandas**", and "**scanpy**"
 
 ```
 conda install numpy pandas scikit-learn
@@ -21,7 +21,7 @@ or
 python preprocess_data.py --filepath Data/ --filename pbmc4340.txt --resultfile pbmcpre.csv
 ```
 
-If the scRNA-seq expression dataset is read-count, please add a parameter "-r" or "--reads", such as
+If the scRNA-seq expression dataset is read-count, please add a parameter "**-r**" or "**--reads**", such as
 ```
 python preprocess_data.py -p FILEPATH/ -i FILENAME -o OUTPUT.csv -r
 ```
