@@ -31,3 +31,6 @@ python runDeepScena.py
 ```
 Before running DeepScena, please modify to your file path (two files: the preprocessed scRNA-seq data file and a cell-type file),
 set the number of clusters (e.g. number_cluster=8), and reset some other parameters such as batch size and maximum iterations. 
+
+## Citation
+Please cite our paper if you use the code.
