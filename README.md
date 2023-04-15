@@ -31,6 +31,8 @@ python runDeepScena.py
 ```
 Before running DeepScena, please modify your file path and names (two files: the preprocessed scRNA-seq data file and its cell-type file), rename your dataset name (e.g. dataset_name = 'pbmc'), set the number of clusters (e.g. number_cluster = 8), and reset some other parameters such as batch size and maximum iterations. 
 
+The latent low-dimensional space will be saved as "dataset_name"+"_uspace.csv" (e.g. pbmc_upsace.csv)， which can be used for visualization.
+
 The clustering result file will be saved as "dataset_name"+"_clusters.csv" (e.g. pbmc_clusters.csv).
 
 ## Citation
