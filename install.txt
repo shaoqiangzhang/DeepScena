@@ -1,0 +1,10 @@
+conda create -n pytorch pip python=3.9
+conda activate pytorch
+pip install Pillow==9.1.1
+conda install -c conda-forge pytorch=1.7.1
+conda install -c conda-forge torchvision==0.8.2
+conda install -c conda-forge pandas==1.4.2
+conda install -c conda-forge scikit-learn==0.24.0
+conda install -c conda-forge pytorch-lightning==1.2.10
+conda install -c conda-forge scanpy==1.9.1
+conda install matplotlib-base==3.5.2
