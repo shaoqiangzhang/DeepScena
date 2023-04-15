@@ -10,7 +10,7 @@ import argparse
 
 # container of all parameters
 parser = argparse.ArgumentParser(description='Manual to this script')
-parser.add_argument('-p', '--filepath', type=str, default='/Data/', help="input file path")
+parser.add_argument('-p', '--filepath', type=str, default='', help="input file path")
 parser.add_argument('-i', '--filename', type=str, required=True, help="input file name")
 parser.add_argument('-o', '--resultfile', type=str, required=True, help="save as .csv file")
 parser.add_argument('-r', '--reads', action="store_true", help="if input file is read-counting, else UMI-counting")
