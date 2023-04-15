@@ -2,9 +2,9 @@
 A self-supervised deep clustering of large scRNA-seq data
 
 ## Install packages
-The code of DeepScena runs with Python version 3.9 and Pytorch==1.7.1.
-Please create a Pytorch environment, install Pytorch and some other packages, such as "**numpy**","**pandas**", "**scikit-learn**" and "**scanpy**". 
-See the __requirements.txt__ and __intall.txt__ file for an overview of the packages in the environment we used to produce our results.
+The code of DeepScena runs with Python version 3.9 and Pytorch==1.7.1. And you should have CUDA installed.
+
+Please create a Pytorch environment, install Pytorch and some other packages, such as "**numpy**","**pandas**", "**scikit-learn**", "**scanpy**", and "**cudatoolkit**". See the __requirements.txt__ and __intall.txt__ file for an overview of the packages in the environment we used to produce our results.
 
 ## Data preprocessing
 
