@@ -29,8 +29,9 @@ You can type command "**python preprocess_data.py -h**" for usage help.
 ```
 python runDeepScena.py
 ```
-Before running DeepScena, please modify to your file path (two files: the preprocessed scRNA-seq data file and a cell-type file),
-set the number of clusters (e.g. number_cluster=8), and reset some other parameters such as batch size and maximum iterations. 
+Before running DeepScena, please modify your file path and names (two files: the preprocessed scRNA-seq data file and its cell-type file), rename your dataset name (e.g. dataset_name = 'pbmc'), set the number of clusters (e.g. number_cluster = 8), and reset some other parameters such as batch size and maximum iterations. 
+
+The clustering result file will be saved as "dataset_name"+"_clusters.csv" (e.g. pbmc_clusters.csv).
 
 ## Citation
 Please cite our paper if you use the code.
