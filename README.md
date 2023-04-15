@@ -16,6 +16,7 @@ or
 ```
 python preprocess_data.py --filepath Data/ --filename pbmc4340.txt --resultfile pbmcpre.csv
 ```
+The program accepts "**.txt**", "**.csv**", and **10x_mtx** files as input file name. 
 
 ### If the scRNA-seq expression dataset is read-count, please add a parameter "-r" or "--reads" as follows
 ```
