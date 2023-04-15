@@ -17,9 +17,9 @@ or
 python preprocess_data.py --filepath Data/ --filename pbmc4340.txt --resultfile pbmcpre.csv
 ```
 
-### If the scRNA-seq expression dataset is read-count, please add a parameter "-r" or "--reads", such as
+### If the scRNA-seq expression dataset is read-count, please add a parameter "-r" or "--reads" as follows
 ```
-python preprocess_data.py -p FILEPATH/ -i FILENAME -o OUTPUT.csv -r
+python preprocess_data.py -p FILE_PATH/ -i FILE_NAME -o OUTPUT_FILE.csv -r
 ```
 You can type command "**python preprocess_data.py -h**" for usage help. 
 
