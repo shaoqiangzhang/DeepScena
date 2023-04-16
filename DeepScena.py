@@ -244,7 +244,7 @@ class DeepScena(nn.Module):
 
                     loss2= torch.matmul( p[i, :].unsqueeze(0), torch.sum(self.nb_loss(x1.view(-1,784),_mean,_disp), dim=1) )
 
-                    beta=0.01 #beta=0.1
+                    beta=0.1 #or set beta=0.01
                     loss=loss1+beta*loss2
                     
                     optimizer.zero_grad()
