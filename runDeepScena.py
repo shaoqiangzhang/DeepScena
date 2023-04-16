@@ -139,15 +139,18 @@ if __name__ == '__main__':
     # orig_labels.to_csv("original_labels.csv")
     predictedlabels = pd.DataFrame(data = predict_list, columns = ['Predicted_labels'])
     # predictedlabels.to_csv("predicted_labels.csv")
-    # uspace = pd.DataFrame(data=latent_u_list)
+    uspace = pd.DataFrame(data=latent_u_list)
     # uspace.to_csv("latent_u_space.csv")
     # qspace = pd.DataFrame(data=latent_q_list)
     # qspace.to_csv("latent_q_space.csv")
     cindex = pd.DataFrame(data=cell_index, index=None, columns = ['cell_index'])
     # cindex.to_csv("shuffle_index.csv")
     
-    clust_result = pd.concat([cindex, predictedlabels], axis = 1)
-    clust_result = clust_result.sort_values(by ="cell_index", ascending = True )
+    uspace_result = pd.concat([cindex, uspace], axis =1)
+    uspace_result = uspace_result.sort_values(by = "cell_index", ascending = True )
+    uspace_result.to_csv(dataset_name+'_uspace.csv', index = False)
     
-    clust_result.to_csv(dataset_name+'_clusters.csv', index=False)
+    clust_result = pd.concat([cindex, predictedlabels], axis = 1)
+    clust_result = clust_result.sort_values(by = "cell_index", ascending = True )
+    clust_result.to_csv(dataset_name+'_clusters.csv', index = False)
 
