@@ -1,53 +1,56 @@
-from keras.engine.topology import Layer
-from keras.layers import Lambda
-from keras import backend as K
-import tensorflow as tf
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+import numpy as np
 
 
-class ConstantDispersionLayer(Layer):
-    '''
-        An identity layer which allows us to inject extra parameters
-        such as dispersion to Keras models
-    '''
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
+class ZINBLoss(nn.Module):
+    def __init__(self):
+        super(ZINBLoss, self).__init__()
 
-    def build(self, input_shape):
-        self.theta = self.add_weight(shape=(1, input_shape[1]),
-                                     initializer='zeros',
-                                     trainable=True,
-                                     name='theta')
-        self.theta_exp = tf.clip_by_value(K.exp(self.theta), 1e-3, 1e4)
-        super().build(input_shape)
+    def forward(self, x, mean, disp, pi, scale_factor=1.0, ridge_lambda=0.0):
+        eps = 1e-10
+        scale_factor = scale_factor[:, None]
+        mean = mean * scale_factor
+        
+        t1 = torch.lgamma(disp+eps) + torch.lgamma(x+1.0) - torch.lgamma(x+disp+eps)
+        t2 = (disp+x) * torch.log(1.0 + (mean/(disp+eps))) + (x * (torch.log(disp+eps) - torch.log(mean+eps)))
+        nb_final = t1 + t2
 
-    def call(self, x):
-        return tf.identity(x)
-
-    def compute_output_shape(self, input_shape):
-        return input_shape
-
-
-class SliceLayer(Layer):
-    def __init__(self, index, **kwargs):
-        self.index = index
-        super().__init__(**kwargs)
-
-    def build(self, input_shape):
-        if not isinstance(input_shape, list):
-            raise ValueError('Input should be a list')
-
-        super().build(input_shape)
-
-    def call(self, x):
-        assert isinstance(x, list), 'SliceLayer input is not a list'
-        return x[self.index]
-
-    def compute_output_shape(self, input_shape):
-        return input_shape[self.index]
+        nb_case = nb_final - torch.log(1.0-pi+eps)
+        zero_nb = torch.pow(disp/(disp+mean+eps), disp)
+        zero_case = -torch.log(pi + ((1.0-pi)*zero_nb)+eps)
+        result = torch.where(torch.le(x, 1e-8), zero_case, nb_case)
+        
+        if ridge_lambda > 0:
+            ridge = ridge_lambda*torch.square(pi)
+            result += ridge
+        
+        result = torch.mean(result)
+        return result
 
 
-nan2zeroLayer = Lambda(lambda x: tf.where(tf.is_nan(x), tf.zeros_like(x), x))
-ColWiseMultLayer = lambda name: Lambda(lambda l: l[0]*(tf.matmul(tf.reshape(l[1], (-1,1)),
-                                                                 tf.ones((1, l[0].get_shape()[1]),
-                                                                         dtype=l[1].dtype))),
-                                       name=name)
+class GaussianNoise(nn.Module):
+    def __init__(self, sigma=0):
+        super(GaussianNoise, self).__init__()
+        self.sigma = sigma
+    
+    def forward(self, x):
+        if self.training:
+            x = x + self.sigma * torch.randn_like(x)
+        return x
+
+
+class MeanAct(nn.Module):
+    def __init__(self):
+        super(MeanAct, self).__init__()
+
+    def forward(self, x):
+        return torch.clamp(torch.exp(x), min=1e-5, max=1e6)
+
+class DispAct(nn.Module):
+    def __init__(self):
+        super(DispAct, self).__init__()
+
+    def forward(self, x):
+        return torch.clamp(F.softplus(x), min=1e-4, max=1e4)
