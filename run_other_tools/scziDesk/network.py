@@ -80,11 +80,12 @@ class autoencoder(object):
     def pretrain(self, X, count_X, size_factor, batch_size, pretrain_epoch, gpu_option):
         print("begin the pretraining")
         init = tf.group(tf.global_variables_initializer(), tf.local_variables_initializer())
+        os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
         os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
         os.environ["CUDA_VISIBLE_DEVICES"] = gpu_option
         config_ = tf.ConfigProto()
-        config_.gpu_options.allow_growth = True
-        config_.allow_soft_placement = True
+        #config_.gpu_options.allow_growth = True
+        #config_.allow_soft_placement = True
         self.sess = tf.Session(config=config_)
         self.sess.run(init)
 

@@ -5,7 +5,7 @@ import utils as utils
 import h5py
 import scipy as sp
 import numpy as np
-import scanpy.api as sc
+import scanpy as sc
 import pandas as pd
 
 
@@ -50,15 +50,24 @@ def read_data(filename, sparsify = False, skip_exprs = False):
 
 
 def prepro(filename):
-    data_path = "./dataset/" + filename + "/data.h5"
-    mat, obs, var, uns = read_data(data_path, sparsify=False, skip_exprs=False)
-    if isinstance(mat, np.ndarray):
-        X = np.array(mat)
+    data_path = "/data/zsq/lty/DCSS/" + filename + ".h5"
+    #mat, obs, var, uns = read_data(data_path, sparsify=False, skip_exprs=False)
+    #if isinstance(mat, np.ndarray):
+    #    X = np.array(mat)
+    #else:
+    #    X = np.array(mat.toarray())
+    #cell_name = np.array(obs["cell_type1"])
+    #cell_type, cell_label = np.unique(cell_name, return_inverse=True)
+    data_mat=h5py.File(data_path, 'r')
+    x = np.array(data_mat['X'])
+    # y is the ground truth labels for evaluating clustering performance
+    # If not existing, we skip calculating the clustering performance metrics (e.g. NMI ARI)
+    if 'Y' in data_mat:
+        y = np.array(data_mat['Y'])
     else:
-        X = np.array(mat.toarray())
-    cell_name = np.array(obs["cell_type1"])
-    cell_type, cell_label = np.unique(cell_name, return_inverse=True)
-    return X, cell_label
+        y = None
+    data_mat.close()
+    return x,y 
 
 def normalize(adata, copy=True, highly_genes = None, filter_min_counts=True, size_factors=True, normalize_input=True, logtrans_input=True):
     if isinstance(adata, sc.AnnData):
