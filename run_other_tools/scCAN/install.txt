@@ -1,0 +1,7 @@
+utils::install.packages('devtools')  #install devtools
+
+install.packages("torch") #install R's torch
+
+install.packages("scDHA")  
+
+devtools::install_github('bangtran365/scCAN')
